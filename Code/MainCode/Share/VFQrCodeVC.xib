@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VFQrCodeVC">
+            <connections>
+                <outlet property="infoLabel" destination="7iV-aA-leV" id="XzG-9H-cQm"/>
+                <outlet property="qrCodeImageView" destination="kbg-4c-ffH" id="JR7-w7-b8O"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Byy-3A-UpK">
+                    <rect key="frame" x="107" y="168" width="200" height="200"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kbg-4c-ffH">
+                            <rect key="frame" x="20" y="20" width="160" height="160"/>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="kbg-4c-ffH" firstAttribute="top" secondItem="Byy-3A-UpK" secondAttribute="top" constant="20" id="CDK-Sn-TfA"/>
+                        <constraint firstAttribute="width" constant="200" id="E9h-De-Ag5"/>
+                        <constraint firstAttribute="trailing" secondItem="kbg-4c-ffH" secondAttribute="trailing" constant="20" id="QCK-fq-Q9N"/>
+                        <constraint firstItem="kbg-4c-ffH" firstAttribute="leading" secondItem="Byy-3A-UpK" secondAttribute="leading" constant="20" id="r4R-mC-gZE"/>
+                        <constraint firstAttribute="bottom" secondItem="kbg-4c-ffH" secondAttribute="bottom" constant="20" id="wIx-OA-ajT"/>
+                        <constraint firstAttribute="height" constant="200" id="zj4-vR-wLJ"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="15"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您分享的用户与您绑定成功后开通任意VIP套餐, 您可自动获得40%的VIP时间,永久有效(被推荐人需要在绑定手机或者注册时在推荐人框输入您的手机或者用户ID, 被推荐人可获得首日新用户专享特价优惠)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7iV-aA-leV">
+                    <rect key="frame" x="35" y="595.5" width="344" height="107.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <color key="textColor" red="0.72941176470000002" green="0.72941176470000002" blue="0.76078431369999999" alpha="0.80265693924053982" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KpW-dt-N3n">
+                    <rect key="frame" x="35" y="783" width="344" height="44"/>
+                    <color key="backgroundColor" name="ThemeColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="oZh-IM-Di6"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="复制我的分享链接">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="12"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="needLanguage" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="copyAction:" destination="-1" eventType="touchUpInside" id="ClP-ZJ-3J1"/>
+                    </connections>
+                </button>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cxb-cg-86h">
+                    <rect key="frame" x="35" y="738" width="344" height="20"/>
+                    <attributedString key="attributedText">
+                        <fragment content="分享的每位用户的第一笔充值可给您增加同样的VIP时间">
+                            <attributes>
+                                <color key="NSColor" red="0.72941176470000002" green="0.72941176470000002" blue="0.76078431369999999" alpha="0.80265693920000003" colorSpace="custom" customColorSpace="sRGB"/>
+                                <font key="NSFont" size="14" name="PingFangSC-Regular"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                <integer key="NSStrikethrough" value="1"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+            <color key="backgroundColor" name="backGroudColor"/>
+            <constraints>
+                <constraint firstItem="Cxb-cg-86h" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="35" id="0nT-lU-EWw"/>
+                <constraint firstItem="KpW-dt-N3n" firstAttribute="top" secondItem="Cxb-cg-86h" secondAttribute="bottom" constant="25" id="Cba-az-2sK"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="7iV-aA-leV" secondAttribute="trailing" constant="35" id="KJo-7D-TfO"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="KpW-dt-N3n" secondAttribute="bottom" constant="35" id="Ssz-k6-jss"/>
+                <constraint firstItem="7iV-aA-leV" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="35" id="Th6-ma-xDx"/>
+                <constraint firstItem="Cxb-cg-86h" firstAttribute="top" secondItem="7iV-aA-leV" secondAttribute="bottom" constant="35" id="UnD-jy-CQ7"/>
+                <constraint firstItem="Byy-3A-UpK" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Zbg-S3-f0Q"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="KpW-dt-N3n" secondAttribute="trailing" constant="35" id="bnS-eY-fFp"/>
+                <constraint firstItem="KpW-dt-N3n" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="35" id="fGL-F3-vsl"/>
+                <constraint firstItem="Byy-3A-UpK" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="120" id="hJf-wk-FuL"/>
+                <constraint firstAttribute="trailing" secondItem="Cxb-cg-86h" secondAttribute="trailing" constant="35" id="nTb-6J-jsy"/>
+            </constraints>
+            <point key="canvasLocation" x="132" y="126"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="ThemeColor">
+            <color red="0.99607843137254903" green="0.61176470588235299" blue="0.5607843137254902" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="backGroudColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

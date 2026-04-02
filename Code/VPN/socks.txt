@@ -1,0 +1,1 @@
+<antinatconfig><interface value="127.0.0.1"></interface><port value="0"></port><maxbindwait value="10"></maxbindwait><authchoice><select mechanism="anonymous"></select></authchoice><chain name="SSSVPN"><uri value="socks5://127.0.0.1:${ssport}"></uri><authscheme value="anonymous"></authscheme></chain><filter><accept></accept></filter></antinatconfig>
