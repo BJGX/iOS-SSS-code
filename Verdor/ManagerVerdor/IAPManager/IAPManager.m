@@ -148,6 +148,9 @@ static IAPManager *_instance;
                     testPayInfo[amountKey] = @"10";
                     testPayInfo[currencyKey] = @"CNY";
                     [self trackAdjustPaymentSuccessWithInfo:testPayInfo];
+                    [YQUtils showCenterMessage:@"已上报"];
+                    return;
+                    
                 }
                
                 NSArray *product = [[NSArray alloc] initWithObjects:productId, nil];
