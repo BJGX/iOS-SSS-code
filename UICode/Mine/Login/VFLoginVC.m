@@ -54,7 +54,7 @@
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //        [self.codeLoginBtn addLiquidGlassBackgroundWithYcornerRadius:8 updateMode:SnapshotUpdateModeContinuous continuousInterval:0.016 blurScale:0 tintColor:[UIColor subBackgroundColor]];
 //    });
-    if (@available(iOS 13.0, *)) {
+    if (![DeviceHelper isiPadOnMac]) {
         [HandleSignInWithAppleModel signInWithAppleWithButtonRect:frame withSupView:self.backView success:^(ASAuthorization * _Nonnull authorization) {
             if ([authorization.credential isKindOfClass:[ASAuthorizationAppleIDCredential class]]) {
                 //
@@ -67,8 +67,6 @@
         } failure:^(NSError * _Nonnull err) {
             
         }];
-    } else {
-        // Fallback on earlier versions
     }
     [self setTitleViewUI];
     
