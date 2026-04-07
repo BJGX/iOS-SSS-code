@@ -131,6 +131,24 @@ static IAPManager *_instance;
             if (productId.length) {
                 self.productID = productId;
                 self.goodsRequestFinished = NO;
+                
+                if (TEST_ING) {
+                    NSMutableDictionary *testPayInfo = [NSMutableDictionary dictionary];
+                    NSString *userId = [YQUserModel shared].user.ID ?: @"";
+                    NSString *date = [NSDate chindDateFormate:[NSDate date]] ?: @"";
+                    if (productId.length) {
+                        testPayInfo[appIdKey] = productId;
+                    }
+                    if (userId.length) {
+                        testPayInfo[userIdKey] = userId;
+                    }
+                    if (date.length) {
+                        testPayInfo[dateKey] = date;
+                    }
+                    testPayInfo[amountKey] = @"10";
+                    testPayInfo[currencyKey] = @"CNY";
+                    [self trackAdjustPaymentSuccessWithInfo:testPayInfo];
+                }
                
                 NSArray *product = [[NSArray alloc] initWithObjects:productId, nil];
                 NSSet *set = [NSSet setWithArray:product];
@@ -520,4 +538,3 @@ static IAPManager *_instance;
 }
 
 @end
-
