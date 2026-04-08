@@ -256,10 +256,24 @@
     
     
     YQHTTPSessionManager *manager= [YQHTTPSessionManager share].manager;
-    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     manager.completionQueue = dispatch_get_global_queue(0, 0);
-    NSDictionary *newParams = [self getCommonParams:params];
-    NSDictionary *header = [self getCommonParams:nil];
+    NSDictionary *informationParams = [self getCommonParams:params];
+    NSDictionary *argumentsParams = [self getCommonParams:nil];
+    NSString *arguments = [VFAES aes_256_cbc_encode:argumentsParams];
+    NSString *information = [VFAES aes_256_cbc_encode:informationParams];
+    
+    
+    
+    NSDictionary *headerParams = @{
+        @"arguments": arguments ?: @""
+    };
+    
+    NSDictionary *newParams = @{
+        @"information": information ?: @""
+    };
+    
+    
+    
     NSString *url = [YQNetwork getHostUrl];
     if (![tailUrl containsString:@"http"]) {
         url = [url stringByAppendingString:tailUrl];
@@ -268,61 +282,39 @@
         url = tailUrl;
     }
     url = [url stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-    
+
     if (mode == POST){
-        
-        
-//       NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST" URLString:url parameters:nil error:nil];
-//        request.timeoutInterval = 30;
-//        [request setValue:@"application/json"  forHTTPHeaderField:@"Content-Type"];
-//        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:header options:0 error:nil];
-//        NSString * jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-//        NSData *body = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-//        [request setHTTPBody:body];
-//        manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-//
-//        [[manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
-//
-//            if (error == nil) {
-//                [self returnSuccessData:response responseObject:responseObject backMainThread:backMainThread andBlock:callBackDictionary];
-//            }
-//            else {
-//                [self returnFailureData:response error:error backMainThread:backMainThread andBlock:callBackDictionary];
-//            }
-//        }] resume];
-//        
-        [manager POST:url parameters:newParams headers:header progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            
-            [self returnSuccessData:task url:url params:header responseObject:responseObject backMainThread:YES andBlock:callBackDictionary];
+        manager.requestSerializer = [AFJSONRequestSerializer serializer];
+        [manager POST:url parameters:newParams headers:headerParams progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            [self returnSuccessData:task url:url params:headerParams responseObject:responseObject backMainThread:YES andBlock:callBackDictionary];
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            [self returnFailureData:task url:url params:header error:error backMainThread:YES andBlock:callBackDictionary];
+            [self returnFailureData:task url:url params:headerParams error:error backMainThread:YES andBlock:callBackDictionary];
         }];
-        
 
     }else  if (mode == GET) {
-
-        [manager GET:url parameters:newParams headers:header progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            [self returnSuccessData:task url:url params:header responseObject:responseObject backMainThread:YES andBlock:callBackDictionary];
+        manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+        [manager GET:url parameters:newParams headers:headerParams progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            [self returnSuccessData:task url:url params:headerParams responseObject:responseObject backMainThread:YES andBlock:callBackDictionary];
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            [self returnFailureData:task url:url params:header error:error backMainThread:YES andBlock:callBackDictionary];
+            [self returnFailureData:task url:url params:headerParams error:error backMainThread:YES andBlock:callBackDictionary];
         }];
-        
 
     }
     else if (mode == DELETE){
+        manager.requestSerializer = [AFHTTPRequestSerializer serializer];
         [manager DELETE:url parameters:newParams headers:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            [self returnSuccessData:task url:url params:header responseObject:responseObject backMainThread:YES andBlock:callBackDictionary];
+            [self returnSuccessData:task url:url params:headerParams responseObject:responseObject backMainThread:YES andBlock:callBackDictionary];
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            [self returnFailureData:task url:url params:header error:error backMainThread:YES andBlock:callBackDictionary];
+            [self returnFailureData:task url:url params:headerParams error:error backMainThread:YES andBlock:callBackDictionary];
         }];
     }
 
     else if (mode == PUT) {
-        
+        manager.requestSerializer = [AFHTTPRequestSerializer serializer];
         [manager PUT:url parameters:newParams headers:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            [self returnSuccessData:task url:url params:header responseObject:responseObject backMainThread:YES andBlock:callBackDictionary];
+            [self returnSuccessData:task url:url params:headerParams responseObject:responseObject backMainThread:YES andBlock:callBackDictionary];
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            [self returnFailureData:task url:url params:header error:error backMainThread:YES andBlock:callBackDictionary];
+            [self returnFailureData:task url:url params:headerParams error:error backMainThread:YES andBlock:callBackDictionary];
         }];
     }
     else{
@@ -523,13 +515,7 @@
         token= [YQUserModel shared].user.token;
     }
     
-//    if ([[YQUserModel shared].user.token length]) {
-//        newParams[@"X-Request-Token"] = [YQUserModel shared].user.token;
-//        NSLog(@"token = %@",[YQUserModel shared].user.token);
-//    }
-//
-//    newParams[@"platform"] = @"Android";
-//    newParams[@"channel"] = @"10001";
+
     NSString *platform = @"ios";
     NSString *channel = @"89201";
     if ([DeviceHelper isiPadOnMac]) {
@@ -538,18 +524,11 @@
     }
     newParams[@"platform"] = platform;
     newParams[@"channel"] = channel;
-    
 
-    
-//    if ([NSProcessInfo processInfo].isiOSAppOnMac) {
-//        newParams[@"channel"] = @"90210";
-//        newParams[@"platform"] = @"mac";
-//    }
     newParams[@"is_ios_data"] = App_Ver;
     newParams[@"if_aes"] = @"1";
     newParams[@"is_version"] = @"3";
     newParams[@"lan"] = [[NPLanguageTool shared].current isEqualToString:@"en"] ? @"en" : @"cn";
-//
     if (dic[@"device_id"] == nil) {
         newParams[@"device_id"] = [YQNetwork shared].uuidSring;
     }
@@ -574,7 +553,6 @@
     newParams[@"timestamp"] = time;
     newParams[@"sign"] = signMD5;
     
-//    NSLog(@"header === %@", newParams);
     return newParams;
     
 }

@@ -262,6 +262,53 @@ const NSString *md5Str = @"RAqI9YtmUY1d1V7JJ4fVZB4cvdEiUsBI";
 
 
 
++ (NSString *)aes_256_cbc_encode:(NSDictionary *)params
+{
+    if (params == nil || [params count] == 0) {
+        return nil;
+    }
+
+    NSError *error = nil;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:params options:0 error:&error];
+    if (error || jsonData == nil) {
+        return nil;
+    }
+
+    char keyPtr[kCCKeySizeAES256 + 1];
+    bzero(keyPtr, sizeof(keyPtr));
+    [AESKey getCString:keyPtr maxLength:sizeof(keyPtr) encoding:NSUTF8StringEncoding];
+
+    char ivPtr[kCCBlockSizeAES128 + 1];
+    memset(ivPtr, 0, sizeof(ivPtr));
+    [IVString getCString:ivPtr maxLength:sizeof(ivPtr) encoding:NSUTF8StringEncoding];
+
+    size_t dataLength = [jsonData length];
+    size_t bufferSize = dataLength + kCCBlockSizeAES128;
+    void *buffer = malloc(bufferSize);
+    size_t numBytesEncrypted = 0;
+
+    CCCryptorStatus cryptStatus = CCCrypt(kCCEncrypt,
+                                          kCCAlgorithmAES128,
+                                          kCCOptionPKCS7Padding,
+                                          keyPtr,
+                                          kCCKeySizeAES256,
+                                          ivPtr,
+                                          [jsonData bytes],
+                                          dataLength,
+                                          buffer,
+                                          bufferSize,
+                                          &numBytesEncrypted);
+
+    if (cryptStatus == kCCSuccess) {
+        NSData *encryptedData = [NSData dataWithBytesNoCopy:buffer length:numBytesEncrypted];
+        return [encryptedData base64EncodedStringWithOptions:0];
+    } else {
+        free(buffer);
+        return nil;
+    }
+}
+
+
 + (NSString *)decodeBase64:(NSString *)string
 {
     string = [[string stringByReplacingOccurrencesOfString:@"-" withString:@"+"] stringByReplacingOccurrencesOfString:@"_" withString:@"/"];

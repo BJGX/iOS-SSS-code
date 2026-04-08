@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (LH_AESModel *)aesDecrypt2:(NSDictionary *)dicData;
 
++ (NSString *)aes_256_cbc_encode:(NSDictionary *)params;
+
 @end
 
 NS_ASSUME_NONNULL_END
