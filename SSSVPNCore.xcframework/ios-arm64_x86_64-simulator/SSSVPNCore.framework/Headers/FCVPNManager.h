@@ -33,6 +33,8 @@ FOUNDATION_EXPORT NSString *const FCVPNManagerErrorKey;
 + (void)stopVPN;
 - (void)removeManager;
 
+- (NSDictionary *)TESTParseSingBoxOutboundWithURLString:(NSString *)urlString;
+
 @end
 
 NS_ASSUME_NONNULL_END

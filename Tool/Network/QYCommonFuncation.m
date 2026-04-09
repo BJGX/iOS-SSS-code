@@ -5,6 +5,7 @@
 #import "QYCommonFuncation.h"
 #import "VFAES.h"
 #import "VFTipsView.h"
+#import <SSSVPNCore/SSSVPNCore.h>
 
 
 
@@ -190,7 +191,8 @@
             model.service_str = [model.service_str stringByReplacingOccurrencesOfString:@"\n" withString:@""];
             model.service_str = [model.service_str stringByReplacingOccurrencesOfString:@"\r" withString:@""];
             
-//            model.service_str = @"ssr://ZGUxdjMuZHNqc2FwaS5jb206NDQzOm9yaWdpbjpub25lOnBsYWluOlEyeE1jVXAwVTJoM1NFMXcvP29iZnNwYXJhbT0mcHJvdG9wYXJhbT0mcmVtYXJrcz1aR1V4ZGpNdVpITnFjMkZ3YVM1amIyMCZncm91cD0mb3RfZW5hYmxlPTEmb3RfZG9tYWluPVpHVXhkak11WkhOcWMyRndhUzVqYjIwJm90X3BhdGg9V1ZSb1JIVlZlbkIwUTBKNE9GVlNOMWR4ZGpr";
+//            /vless
+//            model.service_str = @"xr://dmxlc3M6Ly9mZGQxYTViNS0wNjBiLTQzODctOWFhMC1kYTc2YWRmMzU2YWVAMTU2LjI1MS4xNzkuODM6NzAzP2VuY3J5cHRpb249bm9uZSZzZWN1cml0eT1yZWFsaXR5JmZsb3c9eHRscy1ycHJ4LXZpc2lvbiZ0eXBlPXRjcCZzbmk9YWRkb25zLm1vemlsbGEub3JnJnBiaz1Sb2Q0bFVPdEVpU0tLMERfS0dlMmVYMFppVHJkcEZCWGxRQm93NkdZYUdvJmZwPWNocm9tZSN2NC1yZWFsaXR5LTE1Ni4yNTEuMTc5Ljgz";
             
 //            model.param_s = [VFAES aesDecrypt:model.service_str];
 //            NSLog(@"pass = %@\n dic = %@", model.param_s, obj);
@@ -198,7 +200,17 @@
 //                [YQUtils showCenterMessage:@"该路线不支持"];
 //                return;
 //            }
-//            
+//
+//            model.service_str = @"xr://dHJvamFuOi8vZTRiMDI3YWYtOTA1Yi00OGJjLTg0ZDEtMzc1ODg5NWMwYjNhQDEzNy4yMjAuMTkxLjEyMjoyNTAxNj90eXBlPXRjcCZzZWN1cml0eT10bHMmYWxsb3dJbnNlY3VyZT0xI3Y0LXRyb2phbi0xMzcuMjIwLjE5MS4xMjI=";
+            
+//            model.service_str = @"xr://aHlzdGVyaWEyOi8vYmI4ODU3OTQtZWU4MS00NTEyLTkwNzgtM2M4YjcwOWNlNjk1QDEzNy4yMjAuMTkxLjEyMjo0ODQ0NT9hbHBuPWgzJmluc2VjdXJlPTEmYWxsb3dJbnNlY3VyZT0xI3Y0LWh5c3RlcmlhMi0xMzcuMjIwLjE5MS4xMjI=";
+            
+            
+//            model.service_str = @"xr://c3M6Ly9NakF5TWkxaWJHRnJaVE10WVdWekxURXlPQzFuWTIwNlJWaERjM2N6VWtaRldVSlVNbWxUUlZGeFIwMDJRVDA5QDEwNy4xNDguMjI5LjE3NTo2MDcyOSN2NC1zcy0xMDcuMTQ4LjIyOS4xNzU=";
+            NSLog(@"service_str = \n%@",model.service_str);
+            
+            NSDictionary *dic = [[FCVPNManager sharedManager] TESTParseSingBoxOutboundWithURLString:model.service_str];
+            NSLog(@"dic = \n%@",dic);
             
             [YQUserModel shared].chooseModel = model;
 //            NSDictionary *saveDic = [model mj_JSONObject];
@@ -214,6 +226,7 @@
     
     
 }
+
 
 
  + (void)upldateApp
