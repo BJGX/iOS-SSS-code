@@ -27,6 +27,8 @@ FOUNDATION_EXPORT NSString *const FCVPNManagerErrorKey;
 - (void)switchVPN;
 
 - (BOOL)setDefaultConfigWithURL:(NSString *)service_str time:(NSInteger)time proxy:(BOOL)proxy;
+- (BOOL)setDefaultConfigWithSingBoxConfig:(NSDictionary *)config time:(NSInteger)time;
+- (BOOL)setDefaultConfigWithSingBoxConfigString:(NSString *)configString time:(NSInteger)time;
 
 - (void)switchVPNWithCompletion:(void (^_Nullable)(NSError * _Nullable error))completion;
 - (void)stopVPN;
