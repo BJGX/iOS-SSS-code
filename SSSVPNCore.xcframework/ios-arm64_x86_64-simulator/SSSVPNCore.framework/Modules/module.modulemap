@@ -1,6 +1,0 @@
-framework module SSSVPNCore {
-  umbrella header "SSSVPNCore.h"
-
-  export *
-  module * { export * }
-}
